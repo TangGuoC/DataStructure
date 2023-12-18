@@ -109,7 +109,7 @@ int main()
     stu.height = 130;
     strncpy(stu.name, "zhangsan", sizeof(stu.name) - 1);
     stu.address = "china";
-    
+
 //结构体里的指针，一定要malloc
     stu.address =(char *)malloc(sizeof(char) *  BUFFER_SIZE);
     if(stu.address = NULL)
