@@ -23,33 +23,33 @@ typedef srtuct LinkList;
 }LinkList;
 
 //链表初始化
-int LinkListInit();
+int LinkListInit(LinkList **pList);
 
 //链表头插
-int LinkListHeadInsert();
+int LinkListHeadInsert(LinkList * pList,ELEMENTTYPE val);
 
 //链表尾插
-int LinkListTailInsert();
+int LinkListTailInsert(LinkList * pList,ELEMENTTYPE val);
 
 //指定位置插入
-int LinkListAppiontPosInsert();
+int LinkListAppiontPosInsert(LinkList * pList,int pos, ELEMENTTYPE val);
 
 //链表头删
-int LinkListHeadDel();
+int LinkListHeadDel(LinkList * pList);
 
 //链表尾删
-int LinkListTailDel();
+int LinkListTailDel(LinkList * pList);
 
 //链表指定位置删除
-int LinkListAppointPos();
+int LinkListAppointPos(LinkList * pList, int pos);
 
 //链表删除指定的数据
-int LinkListDelAppointData();
+int LinkListDelAppointData(LinkList * pList, ELEMENTTYPE val);
 
 //获取链表的长度
-int LinkListGetLength();
+int LinkListGetLength(LinkList * pList, int *pSize);
 
 //链表的销毁
-int LinkListDestroy();
+int LinkListDestroy(LinkList * pList);
 
 #endif 
