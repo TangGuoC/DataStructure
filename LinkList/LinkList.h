@@ -17,6 +17,8 @@ typedef srtuct LinkList;
 {
 //链表的虚拟头节点
     LinkNode * head;
+//为什么尾指针不需要分配空间
+    LinkNode * tail;  
 //链表的长度
     int len;
 }LinkList;

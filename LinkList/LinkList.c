@@ -31,6 +31,10 @@ int LinkListInit(LinkList **pList)
      memset(list->head, 0, sizeof(LinkNode) * 1); 
      list->head->data = 0;
      list->head->next = NULL;
+
+    //初始化的时候，尾指针 = 头指针
+    list->tail = list->head;
+
     //链表的长度为0
     list->len = 0;
 
@@ -84,17 +88,37 @@ LinkNode * newNode = (LinkNode *)malloc(sizeof(LinkNode) * 1);
 #else
     LinkNode * travelNode = pList->head->next;
 #endif
-    while(pos)
+    int flag = 0;
+//这种情况下需要更改指针
+    if(pos == pList->len)
     {
-        travelNode = travelNode->next;
-        pos--;
+        travelNode = pList->tail;
+#if 0
+        / newNode->next = travelNode->next;
+        // travelNode->next = newNode;
+        pList->tail = newNode;
+#endif
+        flag = 1;
     }
+    else
+    {
+        while(pos)
+        {
+            travelNode = travelNode->next;
+            pos--;
+        }
+    }
+    
 //修改节点指向
     newNode->next = travelNode->next;
     travelNode->next = newNode;
+    if(flag)
+    {
+        //尾指针更新位置
+        pList->tail = newNode;
+    }
 
-
-//更新链表的长的
+//更新链表的长度
     (pList->len)++;
     return ret;
 }
@@ -103,7 +127,8 @@ LinkNode * newNode = (LinkNode *)malloc(sizeof(LinkNode) * 1);
 //链表头删
 int LinkListHeadDel(LinkList * pList)
 {
-
+    //todo
+    return LinkListDelAppointpos(pList, 1);
 }
 
 //链表尾删
@@ -115,7 +140,41 @@ int LinkListTailDel(LinkList * pList)
 //链表指定位置删除
 int LinkListAppointPos(LinkList * pList, int pos)
 {
+    int ret = 0;
+    if(pList == NULL)
+    {
+        return NULL_PTR;
+    }
 
+    if(pos < 0 || pos > pList->len)
+    {
+        return INVALID_ACCESS;
+    }
+#if 1
+    LinkNode * travelNode = pList->head;
+#else
+     LinkNode * travelNode = pList->head->next;
+#endif
+    while(--pos)
+    {
+        //向后移动
+        travelNode = travelNode->next;
+        //pos--;
+    }
+//跳出循环找到的是哪一个节点？
+    linkNode * needDelNode = travelNode->next;
+    travelNode->next = needDelNode->next;
+
+//释放内存
+    if(needDelNode == NULL)
+    {
+        free(needDelNode);
+        needDelNode = NULL;
+    }
+
+//链表长度减一
+    (pList->len)--;
+    return ret;
 }
 
 //链表删除指定的数据
@@ -149,5 +208,28 @@ int LinkListDestroy(LinkList * pList)
 //链表遍历接口
 int LinkListForeach(LinkList * pList)
 {
+    int ret = 0;
+    if(pList == NULL)
+    {
+        return NULL_PTR;
+    }
 
+#if 0
+//travelNode指向虚拟头节点
+    LinkNode * travelNode = pList->head;
+     while(travelNode->next != NULL)
+    {
+        travelNode = travelNode->next;
+        printf("travelNode->data:%d\n", travelNode->data);
+    }
+#else
+//travelNode指向C链表的第一个元素
+    LinkNode * travelNode = pList->head->next;
+    while(travelNode != NULL)
+    {
+        printf("travelNode->data:%d\n", travelNode->data);
+         travelNode = travelNode->next;
+    }
+#endif
+    return ret;
 }
