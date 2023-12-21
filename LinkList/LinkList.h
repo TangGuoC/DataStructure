@@ -7,8 +7,7 @@
 typedef struct LinkNode
 {
     ELEMENTTYPE data;
-
-//指向一个节点的指针
+    //指向一个节点的指针
     struct LinkNode *ptr; //指针的类型为什么是节点
 }LinkNode;
 
@@ -51,5 +50,8 @@ int LinkListGetLength(LinkList * pList, int *pSize);
 
 //链表的销毁
 int LinkListDestroy(LinkList * pList);
+
+//链表遍历接口
+int LinkListForeach(LinkList * pList);
 
 #endif 
