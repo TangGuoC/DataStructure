@@ -160,6 +160,15 @@ int LinkListAppointPos(LinkList * pList, int pos)
 #else
      LinkNode * travelNode = pList->head->next;
 #endif
+
+    int flag = 0;
+//修改尾指针
+    if(pos == pList->len)
+    {
+        //需要修改尾指针
+        flag = 1;
+    }
+    LinkList * needDelNode = NULL;
     while(--pos)
     {
         //向后移动
@@ -167,9 +176,15 @@ int LinkListAppointPos(LinkList * pList, int pos)
         //pos--;
     }
 //跳出循环找到的是哪一个节点？
-    linkNode * needDelNode = travelNode->next;
+    needDelNode = travelNode->next;
     travelNode->next = needDelNode->next;
 
+    if(flag)
+    {
+        //调整尾指针
+        pList->tail = travelNode;
+    }
+    
 //释放内存
     if(needDelNode == NULL)
     {
