@@ -352,9 +352,30 @@ int DoubleLinkListForeach(DoubleLinkList * pList)
     DoubleLinkNode * travelNode = pList->head->next;
     while(travelNode != NULL)
     {
+#if 0
         printf("travelNode->data:%d\n", travelNode->data);
-         travelNode = travelNode->next;
+#else
+//包装器 钩子 回调函数
+        printFunc(travelNode->data);
+#endif
+        travelNode = travelNode->next;
     }
 #endif
     return ret;
 }
+
+
+int DoubleLinkListReverseForeach(DoubleLinkList * pList,int (*printFunc), (ELEMENTTYPE) val)
+{
+     int ret = 0;
+     DoubleLinkNode * travelNode = pList->tail;
+    while(travelNode != pList->tail)
+    {
+        printFunc(travelNode->data);
+        //移动前指针
+        travelNode = travelNode->prev;
+    }
+
+    return ret;
+}
+

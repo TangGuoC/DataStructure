@@ -59,4 +59,8 @@ int DoubleLinkListDestroy(DoubleLinkList * pList);
 //链表遍历接口
 int DoubleLinkListForeach(DoubleLinkList * pList);
 
+
+int DoubleLinkListReverseForeach(DoubleLinkList * pList,int (*printFunc), (ELEMENTTYPE) val);
+
+
 #endif 
