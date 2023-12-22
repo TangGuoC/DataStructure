@@ -1,7 +1,7 @@
 #ifndef __LINKLIST_H_
 #define __LINKLIST_H_
 
-#define ELEMENTTYPE int
+#define ELEMENTTYPE void*
 
 //链表节点取别名
 typedef struct LinkNode
@@ -13,7 +13,7 @@ typedef struct LinkNode
 
 
 //链表
-typedef srtuct LinkList;
+typedef struct LinkList
 {
 //链表的虚拟头节点
     LinkNode * head;
@@ -22,6 +22,7 @@ typedef srtuct LinkList;
 //链表的长度
     int len;
 }LinkList;
+
 
 //链表初始化
 int LinkListInit(LinkList **pList);

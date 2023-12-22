@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "LinkList.h"
 #include <stdlib.h>
-
+#include <string.h>
 
 enum STATUS_CODE
 {
@@ -128,7 +128,6 @@ LinkNode * newNode = (LinkNode *)malloc(sizeof(LinkNode) * 1);
     return ret;
 }
 
-
 //链表头删
 int LinkListHeadDel(LinkList * pList)
 {
@@ -210,24 +209,35 @@ static int LinkListAccordAppointValGetPos(LinkList * pList, ELEMENTTYPE val)
     int pos = 1;
     LinkNode *travelNode = pList->head->next;
 #endif
+    int cmp = 0;
     while(travelNode != NULL)
     {
+#if 0
         if(travelNode->data == val)
         {
             //解引用
             *pPos = pos;
             return pos;
         }
+#else
+       cmp = compareFunc(val, travelNode->data);
+        if(cmp == 0)
+        {
+            //解引用
+            *pPos = pos;    
+            return pos;
+        }
+#endif
         travelNode = travelNode->next;
         pos++;
     }
-    //解引用
-    *pPos = NOT_FIND;    
-   return NOT_FIND;
+        //解引用
+        *pPos = NOT_FIND;    
+        return NOT_FIND;
 }
 
 //链表删除指定的数据
-int LinkListDelAppointData(LinkList * pList, ELEMENTTYPE val)
+int LinkListDelAppointData(LinkList * pList, ELEMENTTYPE val, int (*comparaFunc)(ELEMENTTYPE))
 {
     int ret = 0;
 
